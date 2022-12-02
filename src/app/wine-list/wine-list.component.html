@@ -1,0 +1,27 @@
+<h1>Lista de Vinos</h1>
+<table>
+  <thead>
+    <th>Etiqueta</th>
+    <th>Estilo</th>
+    <th>Bodega</th>
+    <th>Precio</th>
+     <th>Marcar cantidad</th>
+    <th>Agregar a carrito</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let wine of wines" [ngClass]="{'clearence': wine.clearence}">
+      <td>{{ wine.name }}</td>
+      <td>{{ wine.style }}</td>
+      <td>{{ wine.store }}</td>
+      <td>{{ wine.price | currency }}</td>
+      <td>
+        <app-input-integer [(quantity)]="wine.quantity" [max]="wine.stock" (maxReached)="maxReached($event)" *ngIf="wine.stock"></app-input-integer>
+      </td>
+      <td>
+        <button class="btn-agregar" (click)="addToCart(wine)">Agregar</button>
+      </td>
+      <td class="td-sinStock"><span class="sinStock" *ngIf="wine.stock == 0">Sin Stock</span></td>
+    </tr>
+  </tbody>
+</table>
+
